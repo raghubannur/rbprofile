@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Raghu Bannur — Sr. Director, Infrastructure, Cloud & AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #08060f;
+    --bg-1: #110b1f;
+    --bg-2: #1a1029;
+    --bg-card: rgba(26, 18, 42, 0.55);
+    --bg-card-solid: #1a1229;
+    --ink: #f5efe6;
+    --ink-mute: #b9add0;
+    --ink-dim: #6b5f80;
+    --amber: #ff7a1a;
+    --amber-soft: #ffb088;
+    --violet: #a855f7;
+    --violet-soft: #c4b5fd;
+    --cyan: #22d3ee;
+    --cyan-soft: #67e8f9;
+    --rose: #f472b6;
+    --line: rgba(245, 239, 230, 0.08);
+    --line-strong: rgba(245, 239, 230, 0.18);
+    --grad-primary: linear-gradient(135deg, #ff7a1a 0%, #f472b6 50%, #a855f7 100%);
+    --grad-cool: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+    --grad-warm: linear-gradient(135deg, #ff7a1a 0%, #f472b6 100%);
+    --grad-meta: linear-gradient(135deg, #a855f7 0%, #22d3ee 50%, #ff7a1a 100%);
+    --grain: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.90 0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-0);
+    color: var(--ink);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* === GLOBAL ATMOSPHERIC GRADIENT LAYER === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 10%, rgba(255, 122, 26, 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse 70% 60% at 85% 20%, rgba(168, 85, 247, 0.20) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(34, 211, 238, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 20% 85%, rgba(244, 114, 182, 0.16) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 60% at 90% 95%, rgba(168, 85, 247, 0.18) 0%, transparent 50%),
+      linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%);
+    z-index: 0;
+    pointer-events: none;
+    animation: drift 30s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3%, 2%) scale(1.05); }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: var(--grain);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 2; }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Conic glow behind name */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 800px;
+    height: 800px;
+    transform: translate(-50%, -50%);
+    background: conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(255, 122, 26, 0.15) 25%, rgba(168, 85, 247, 0.18) 50%, rgba(34, 211, 238, 0.10) 75%, transparent 100%);
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    animation: rotate 40s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 60px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    position: relative;
+  }
+
+  .top-bar .logo {
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  .top-bar .meta { display: flex; gap: 32px; }
+  .top-bar .meta span::before { content: '◆ '; color: var(--amber); }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: end;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--grad-warm);
+  }
+
+  h1.name {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(72px, 11vw, 160px);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin-bottom: 32px;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    position: relative;
+  }
+
+  h1.name .first {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(135deg, #f5efe6 0%, #b9add0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  h1.name .last { display: block; color: var(--ink); }
+  h1.name .last em {
+    font-style: normal;
+    font-weight: 700;
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradShift 6s ease infinite;
+  }
+
+  @keyframes gradShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 400;
+    color: var(--ink-mute);
+    max-width: 600px;
+    line-height: 1.3;
+    margin-bottom: 40px;
+  }
+
+  .title em {
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .hero-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 12px;
+  }
+
+  .contact-block {
+    background: linear-gradient(135deg, rgba(26, 18, 42, 0.7) 0%, rgba(17, 11, 31, 0.7) 100%);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px 28px;
+    position: relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+
+  .contact-block:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+  }
+
+  .contact-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--grad-primary);
+  }
+
+  .contact-block::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .contact-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+    display: block;
+    position: relative;
+  }
+
+  .contact-block .value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+    position: relative;
+  }
+
+  .contact-block .value.large {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  /* === STATS STRIP === */
+  .stats-strip {
+    background: linear-gradient(180deg, transparent 0%, rgba(26, 18, 42, 0.4) 50%, transparent 100%);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stats-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .stats-strip::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: 50%;
+    width: 600px; height: 600px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255, 122, 26, 0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .stat {
+    text-align: left;
+    padding: 0 24px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:first-child { padding-left: 0; }
+
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-variation-settings: "opsz" 144;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat:nth-child(2) .num { background: var(--grad-cool); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat:nth-child(3) .num { background: linear-gradient(135deg, #f472b6 0%, #a855f7 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat:nth-child(4) .num { background: linear-gradient(135deg, #22d3ee 0%, #ff7a1a 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat:nth-child(5) .num { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .stat .num .suffix {
+    font-size: 0.4em;
+    font-weight: 400;
+    -webkit-text-fill-color: var(--ink);
+  }
+
+  .stat .label {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+
+  /* === SECTION FRAME === */
+  section.frame {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+
+  .section-num::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--grad-warm);
+    margin-top: 12px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .section-title em {
+    font-style: italic;
+    font-weight: 400;
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* === SUMMARY === */
+  .summary-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 920px;
+    margin-left: 260px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .summary-text em {
+    font-style: italic;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+  }
+
+  .summary-text mark {
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 122, 26, 0.30) 60%, rgba(168, 85, 247, 0.30) 100%);
+    color: var(--ink);
+    padding: 0 2px;
+  }
+
+  /* === SKILLS MATRIX === */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .skill-card {
+    background: linear-gradient(135deg, rgba(26, 18, 42, 0.6) 0%, rgba(17, 11, 31, 0.6) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 32px 28px;
+    transition: background 0.4s ease, transform 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--grad-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255, 122, 26, 0.12) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .skill-card:hover {
+    background: linear-gradient(135deg, rgba(36, 24, 58, 0.7) 0%, rgba(26, 18, 42, 0.7) 100%);
+  }
+
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-card:hover::after { opacity: 1; }
+
+  .skill-card .icon {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1;
+  }
+
+  .skill-card:nth-child(2) .icon { background: var(--grad-cool); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(3) .icon { background: linear-gradient(135deg, #f472b6, #ff7a1a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(4) .icon { background: linear-gradient(135deg, #a855f7, #f472b6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(5) .icon { background: linear-gradient(135deg, #22d3ee, #a855f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(6) .icon { background: linear-gradient(135deg, #ff7a1a, #22d3ee); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(7) .icon { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .skill-card:nth-child(8) .icon { background: linear-gradient(135deg, #f472b6, #22d3ee); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .skill-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+
+  .skill-card ul { list-style: none; position: relative; }
+  .skill-card li {
+    font-size: 14px;
+    color: var(--ink-mute);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .skill-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .skill-card li:last-child { border: none; }
+
+  /* === EXPERIENCE TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 80px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--amber) 0%, var(--rose) 25%, var(--violet) 60%, var(--cyan) 100%);
+    opacity: 0.6;
+  }
+
+  .job {
+    position: relative;
+    padding: 28px 0 48px 32px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .job:last-child { border-bottom: none; }
+
+  .job::before {
+    content: '';
+    position: absolute;
+    left: -45px;
+    top: 36px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--bg-0);
+    border: 2px solid var(--amber);
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  .job.current::before {
+    background: var(--grad-warm);
+    border-color: transparent;
+    box-shadow: 0 0 0 6px rgba(255, 122, 26, 0.25), 0 0 30px rgba(255, 122, 26, 0.4);
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 6px rgba(255, 122, 26, 0.25), 0 0 30px rgba(255, 122, 26, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 122, 26, 0.15), 0 0 50px rgba(255, 122, 26, 0.6); }
+  }
+
+  .job:hover::before {
+    transform: scale(1.5);
+    background: var(--grad-warm);
+    border-color: transparent;
+  }
+
+  .job-head {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 40px;
+    align-items: baseline;
+    margin-bottom: 20px;
+  }
+
+  .job .company {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 2.4vw, 32px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+  }
+
+  .job .company .role {
+    display: block;
+    font-size: 0.6em;
+    font-weight: 400;
+    color: var(--ink-mute);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .job .period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    text-align: right;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, rgba(26, 18, 42, 0.7) 0%, rgba(17, 11, 31, 0.7) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .job .current-tag {
+    display: inline-block;
+    background: var(--grad-warm);
+    color: var(--bg-0);
+    font-weight: 700;
+    padding: 4px 10px;
+    margin-left: 8px;
+    font-size: 10px;
+    border-radius: 3px;
+  }
+
+  .job p {
+    color: var(--ink-mute);
+    font-size: 15.5px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+    max-width: 920px;
+  }
+
+  .job p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .job .metric {
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* === HIGHLIGHTS === */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .highlight {
+    background: linear-gradient(155deg, rgba(36, 24, 58, 0.7) 0%, rgba(17, 11, 31, 0.7) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .highlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .highlight:nth-child(2)::after { background: radial-gradient(circle at top right, rgba(255, 122, 26, 0.15) 0%, transparent 50%); }
+  .highlight:nth-child(3)::after { background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.12) 0%, transparent 50%); }
+  .highlight:nth-child(4)::after { background: radial-gradient(circle at top right, rgba(244, 114, 182, 0.12) 0%, transparent 50%); }
+  .highlight:nth-child(5)::after { background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15) 0%, transparent 50%); }
+  .highlight:nth-child(6)::after { background: radial-gradient(circle at top right, rgba(255, 122, 26, 0.12) 0%, transparent 50%); }
+
+  .highlight:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 122, 26, 0.4);
+    box-shadow: 0 20px 60px rgba(168, 85, 247, 0.15);
+  }
+
+  .highlight::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-family: 'Fraunces', serif;
+    font-size: 84px;
+    font-weight: 300;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.25;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .highlight h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    position: relative;
+    padding-right: 60px;
+  }
+
+  .highlight p {
+    color: var(--ink-mute);
+    font-size: 14.5px;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .highlight .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+  }
+
+  /* === CERTS + EDU === */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .col-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: italic;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .item-list { list-style: none; }
+  .item-list li {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: baseline;
+    transition: padding 0.3s ease;
+  }
+
+  .item-list li:hover { padding-left: 8px; }
+  .item-list li:last-child { border-bottom: none; }
+
+  .item-list .title-text {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .item-list .title-text .org {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  .item-list .year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .item-list .pursuing {
+    background: linear-gradient(135deg, rgba(255, 122, 26, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+    color: var(--amber-soft);
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    border: 1px solid rgba(255, 122, 26, 0.2);
+  }
+
+  /* === GLOBAL FOOTPRINT === */
+  .footprint-section {
+    position: relative;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footprint-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(26, 18, 42, 0.5) 50%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .countries-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .country {
+    background: linear-gradient(135deg, rgba(26, 18, 42, 0.6) 0%, rgba(17, 11, 31, 0.6) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 18px;
+    text-align: center;
+    transition: all 0.4s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .country::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 122, 26, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .country:nth-child(2n)::before { background: radial-gradient(circle at center, rgba(168, 85, 247, 0.18) 0%, transparent 70%); }
+  .country:nth-child(3n)::before { background: radial-gradient(circle at center, rgba(34, 211, 238, 0.15) 0%, transparent 70%); }
+  .country:nth-child(5n)::before { background: radial-gradient(circle at center, rgba(244, 114, 182, 0.15) 0%, transparent 70%); }
+
+  .country:hover {
+    border-color: rgba(255, 122, 26, 0.4);
+    transform: translateY(-4px);
+  }
+
+  .country:hover::before { opacity: 1; }
+
+  .country .flag-mono {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-style: italic;
+    position: relative;
+  }
+
+  .country:nth-child(2n) .flag-mono { background: var(--grad-cool); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .country:nth-child(3n) .flag-mono { background: linear-gradient(135deg, #f472b6, #ff7a1a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .country:nth-child(5n) .flag-mono { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .country .name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    position: relative;
+  }
+
+  /* === INDUSTRIES === */
+  .industries-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .industry-pill {
+    padding: 10px 20px;
+    border: 1px solid var(--line-strong);
+    border-radius: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    transition: all 0.4s ease;
+    cursor: default;
+    background: rgba(26, 18, 42, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .industry-pill:hover {
+    background: var(--grad-warm);
+    color: var(--bg-0);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 122, 26, 0.3);
+  }
+
+  .industry-pill:nth-child(3n):hover { background: var(--grad-cool); box-shadow: 0 6px 20px rgba(34, 211, 238, 0.3); }
+  .industry-pill:nth-child(5n):hover { background: var(--grad-primary); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3); }
+
+  /* === FOOTER === */
+  footer {
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 6, 15, 0.8) 100%);
+    border-top: 1px solid var(--line);
+    padding: 60px 0 40px;
+    margin-top: 0;
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 800px;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--amber), var(--violet), var(--cyan), transparent);
+    opacity: 0.5;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 50px;
+  }
+
+  .footer-name {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .footer-name span {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .footer-tag {
+    color: var(--ink-mute);
+    font-size: 14px;
+    max-width: 360px;
+  }
+
+  .footer-col h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .footer-col a, .footer-col span {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+
+  .footer-col a:hover { color: var(--amber); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* === AWARDS RIBBON === */
+  .awards-strip {
+    padding: 50px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(90deg, rgba(8, 6, 15, 0.4) 0%, rgba(26, 18, 42, 0.4) 50%, rgba(8, 6, 15, 0.4) 100%);
+  }
+
+  .awards-strip::before, .awards-strip::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 200px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .awards-strip::before { left: 0; background: linear-gradient(90deg, var(--bg-0) 0%, transparent 100%); }
+  .awards-strip::after { right: 0; background: linear-gradient(270deg, var(--bg-0) 0%, transparent 100%); }
+
+  .awards-track {
+    display: flex;
+    gap: 80px;
+    animation: scroll 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .award-item {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+
+  .award-item::after {
+    content: '◆';
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
+    font-size: 14px;
+  }
+
+  /* === REVEAL ANIMATIONS === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 1024px) {
+    .container { padding: 0 32px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 0 0 24px; }
+    .stat:first-child, .stat { padding-left: 0; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .highlights-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 60px; }
+    .countries-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 50px; }
+    .summary-text { margin-left: 0; }
+    .timeline { padding-left: 40px; }
+    .timeline::before { left: 20px; }
+    .job::before { left: -25px; }
+    .job-head { grid-template-columns: 1fr; gap: 12px; }
+    .job .period { text-align: left; align-self: start; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    section.frame { padding: 80px 0; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .countries-grid { grid-template-columns: repeat(2, 1fr); }
+    .top-bar { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .top-bar .meta { gap: 16px; flex-wrap: wrap; }
+  }
+
+  @media print {
+    body::before, body::after, .hero::before, .awards-strip::before, .awards-strip::after { display: none; }
+    .awards-track { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="top-bar">
+      <span class="logo">RB / CURRICULUM VITAE</span>
+      <div class="meta">
+        <span>Edition 2026</span>
+        <span>Bangalore — IN</span>
+        <span>Available Q3 →</span>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Senior Director — Available for engagement</div>
+        <h1 class="name">
+          <span class="first">Raghu</span>
+          <span class="last">Bann<em>u</em>r</span>
+        </h1>
+        <p class="title">
+          Twenty-five years architecting the infrastructure beneath global enterprise — now translating that foundation into <em>AI-native operating models</em>, agentic platforms, and cloud transformation at planetary scale.
+        </p>
+      </div>
+
+      <aside class="hero-side">
+        <div class="contact-block">
+          <span class="label">Position</span>
+          <span class="value large">Sr. Director</span>
+          <span class="value" style="color: var(--ink-mute); margin-top: 4px;">Infrastructure · Cloud · AI</span>
+        </div>
+        <div class="contact-block">
+          <span class="label">Direct Line</span>
+          <span class="value">+91 95918 10294</span>
+        </div>
+        <div class="contact-block">
+          <span class="label">Correspondence</span>
+          <span class="value">raghuvbannur@gmail.com</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="num" data-target="25"><span class="counter">0</span><span class="suffix">+ yrs</span></div><div class="label">Industry<br />Tenure</div></div>
+      <div class="stat reveal"><div class="num" data-target="50000"><span class="counter">0</span><span class="suffix">+</span></div><div class="label">Workloads<br />Migrated</div></div>
+      <div class="stat reveal"><div class="num" data-target="2500"><span class="counter">0</span><span class="suffix">+</span></div><div class="label">Applications<br />Modernised</div></div>
+      <div class="stat reveal"><div class="num" data-target="100"><span class="counter">0</span><span class="suffix">+ PMs</span></div><div class="label">Project Managers<br />Directed</div></div>
+      <div class="stat reveal"><div class="num" data-target="99.5"><span class="counter">0</span><span class="suffix">%</span></div><div class="label">SLA<br />Compliance</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section class="frame" id="summary">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01 — PROFILE</div>
+      <h2 class="section-title">A strategic <em>operator</em> at the intersection of infrastructure & intelligence.</h2>
+    </div>
+
+    <p class="summary-text reveal">
+      Strategic infrastructure and cloud technology leader directing large-scale <mark>AWS and Azure transformation programs</mark>, AI-enabled platforms, and enterprise modernisation initiatives across <em>nine global organisations</em>. Track record managing multi-million dollar portfolios, leading 100+ project managers, and delivering scalable high-availability cloud architectures. Equally adept at defining <em>AI strategy</em> and deploying intelligent automation as at building resilient infrastructure, auto-scaling systems, and CI/CD delivery frameworks — bridging business growth objectives with cloud and AI capabilities across distributed global teams.
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="frame" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02 — COMPETENCIES</div>
+      <h2 class="section-title">Capabilities — <em>technical depth</em> meets executive reach.</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <span class="icon">☁</span>
+        <h3>Cloud Platforms</h3>
+        <ul>
+          <li>AWS — EC2 · ECS · EKS · VPC</li>
+          <li>AWS — IAM · S3 · RDS · DynamoDB</li>
+          <li>AWS — ALB/NLB · CloudWatch</li>
+          <li>Microsoft Azure (Architect)</li>
+          <li>Google Cloud Platform</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">⌘</span>
+        <h3>AI & Agentic</h3>
+        <ul>
+          <li>OpenAI GPT · RAG 2.0</li>
+          <li>AI Agent Design & Deployment</li>
+          <li>Multi-Agent Orchestration</li>
+          <li>AI Strategy & Roadmapping</li>
+          <li>Call Sentiment Analysis (Python)</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">⚙</span>
+        <h3>DevOps & IaC</h3>
+        <ul>
+          <li>Azure DevOps · ARM Templates</li>
+          <li>CI/CD Pipeline Architecture</li>
+          <li>Terraform (conceptual)</li>
+          <li>Auto-scaling & HA Design</li>
+          <li>Release Standardisation</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">◈</span>
+        <h3>Leadership</h3>
+        <ul>
+          <li>Multi-million $ Portfolio Mgmt</li>
+          <li>100+ Global PM Direction</li>
+          <li>Vendor & Stakeholder Mgmt</li>
+          <li>Incident Response Governance</li>
+          <li>P&L · Cost Optimisation</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">⌬</span>
+        <h3>Programming</h3>
+        <ul>
+          <li>Python — automation & ML</li>
+          <li>PowerShell · Shell Scripting</li>
+          <li>VB Scripts</li>
+          <li>SQL — Oracle · MS SQL · MySQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">⎈</span>
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Linux (RHEL, Ubuntu)</li>
+          <li>Windows Server</li>
+          <li>IBM AIX</li>
+          <li>HP-UX</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">⊟</span>
+        <h3>Tooling & ITSM</h3>
+        <ul>
+          <li>ServiceNow · JIRA</li>
+          <li>Microsoft ADO · MS Project</li>
+          <li>PowerApps · Advanced Excel</li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="icon">▥</span>
+        <h3>Data Layer</h3>
+        <ul>
+          <li>Oracle · MS SQL Server</li>
+          <li>MySQL · PostgreSQL</li>
+          <li>Amazon RDS · DynamoDB</li>
+          <li>Database Migration Strategy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="frame" id="experience">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03 — TRAJECTORY</div>
+      <h2 class="section-title">A career mapped across <em>nine institutions</em>, six continents.</h2>
+    </div>
+
+    <div class="timeline">
+
+      <article class="job current reveal">
+        <div class="job-head">
+          <h3 class="company">LTM<span class="role">Sr. Director — Program & Project Management</span></h3>
+          <span class="period">Feb 2024 — Present <span class="current-tag">Now</span></span>
+        </div>
+        <p>Lead enterprise infrastructure and cloud transformation programs, defining technology roadmaps that align <strong>AWS and Azure capabilities</strong> with organisational growth objectives and operational efficiency targets.</p>
+        <p>Defined and executed an <strong>Agentic AI strategy</strong>, designing and deploying <strong>OpenAI GPT-powered AI agents</strong> to automate reporting and status updates across project portfolios — <span class="metric">reducing manual effort</span> and enabling real-time visibility for programme stakeholders.</p>
+        <p>Architected <strong>multi-agent orchestration frameworks</strong> enabling autonomous task execution across programme management workflows, establishing the organisation's AI agent capability foundation.</p>
+        <p>Deployed <strong>AI Chat (RAG 2.0)</strong> for Factory operations replacing manual lookup processes; built Python-based <strong>Call Sentiment Analysis agent</strong> for automated QA at scale.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Accenture<span class="role">Sr. Manager — Infrastructure Transformation (VP)</span></h3>
+          <span class="period">Feb 2016 — Jan 2024</span>
+        </div>
+        <p>Delivered enterprise-scale migration of <span class="metric">50,000+ workloads and 2,500 applications</span> across AWS (EC2, ECS, VPC, S3, RDS, IAM) and Azure over five years, eliminating on-premises hardware dependency for global Banking, Insurance, O&GC, Pharmaceutical, and Airlines clients.</p>
+        <p>Executed hybrid cloud migration of <strong>500 applications across 20,000 servers</strong>, maintaining <span class="metric">99.5% uptime SLA compliance</span> with zero major outages throughout the program.</p>
+        <p>Led end-to-end service transition of <strong>500 FTEs from North America to India</strong>, delivering <span class="metric">40–50% reduction in operational delivery costs</span> with full SLA adherence.</p>
+        <p>Directed multi-million dollar transformation portfolios across global geographies, managing <strong>100+ project managers</strong> with consistent on-time, on-budget delivery. Improved CI/CD workflows using Azure DevOps and ARM templates.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Cognizant<span class="role">Transition Manager</span></h3>
+          <span class="period">Aug 2014 — Feb 2016</span>
+        </div>
+        <p>Managed end-to-end transition programs for global Banking and Insurance clients, ensuring knowledge transfer, SLA alignment, and operational continuity. Led cross-functional teams across engineering and operations to deliver seamless service transitions within agreed timelines and governance frameworks.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">HP Global Soft<span class="role">Transition & Transformation Manager</span></h3>
+          <span class="period">Aug 2010 — Aug 2014</span>
+        </div>
+        <p>Directed infrastructure transition and transformation programs for large global clients, overseeing risk management, compliance audits, and ISO-aligned governance. Managed cost estimation, SLA governance, and performance optimisation across complex multi-geography infrastructure portfolios.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Wipro Infotech<span class="role">Project Leader</span></h3>
+          <span class="period">Feb 2007 — Aug 2010</span>
+        </div>
+        <p>Led infrastructure project delivery teams across network and systems at <strong>Tier-3 Datacentres</strong>, ensuring consistent delivery against client SLAs and operational excellence standards.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Pico Mobile Solutions<span class="role">Senior System Support Engineer · acquired by Marvell Technology Inc.</span></h3>
+          <span class="period">Sep 2006 — Feb 2007</span>
+        </div>
+        <p>Provided senior-level system and infrastructure support, managing incident resolution and escalation across enterprise environments.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Azim Premji Foundation<span class="role">Member — Technology Initiatives</span></h3>
+          <span class="period">May 2002 — Sep 2006</span>
+        </div>
+        <p>Spearheaded <strong>Mobile Computer-Aided Learning Centres</strong> benefitting <span class="metric">5,000+ children</span>; deployed open-source platforms across government schools, <span class="metric">reducing CAPEX by 50%</span>.</p>
+        <p>Developed prototype tracking software to prevent misuse of government-deployed PCs across schools in India.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">Global Edge Software<span class="role">Senior System Support Engineer · acquired by Altran (now Capgemini)</span></h3>
+          <span class="period">May 2000 — May 2002</span>
+        </div>
+        <p>Delivered enterprise system support and infrastructure operations across Banking and Insurance client environments.</p>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-head">
+          <h3 class="company">CM&IT<span class="role">Systems Support Engineer</span></h3>
+          <span class="period">Nov 1999 — May 2000</span>
+        </div>
+        <p>Provided foundational systems and IT infrastructure support, building hands-on expertise in enterprise operations that underpinned a <strong>25-year technology career</strong>.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS RIBBON -->
+<section class="awards-strip">
+  <div class="awards-track">
+    <span class="award-item">Accenture ACE Award · 2019</span>
+    <span class="award-item">Corona Warrior Accreditation</span>
+    <span class="award-item">Azure Architect AZ-303</span>
+    <span class="award-item">Azure Fundamentals AZ-900</span>
+    <span class="award-item">CIS-STRIVE Leadership · Effilor</span>
+    <span class="award-item">AI Product Leadership · IIT Kanpur</span>
+    <span class="award-item">Accenture ACE Award · 2019</span>
+    <span class="award-item">Corona Warrior Accreditation</span>
+    <span class="award-item">Azure Architect AZ-303</span>
+    <span class="award-item">Azure Fundamentals AZ-900</span>
+    <span class="award-item">CIS-STRIVE Leadership · Effilor</span>
+    <span class="award-item">AI Product Leadership · IIT Kanpur</span>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="frame" id="highlights">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">04 — SIGNATURE WORK</div>
+      <h2 class="section-title">Six programmes that <em>defined the decade</em>.</h2>
+    </div>
+
+    <div class="highlights-grid">
+
+      <article class="highlight reveal" data-num="01">
+        <h4>Tier-3 Datacenter Stand-Ups</h4>
+        <p>Stood up enterprise-grade Tier-3 datacentres for Airline industry and International Banking clients — full HA topology, redundancy, and zero-single-point-of-failure architecture.</p>
+        <span class="badge">Airlines · Banking</span>
+      </article>
+
+      <article class="highlight reveal" data-num="02">
+        <h4>50,000-Workload AWS · Azure Migration</h4>
+        <p>Five-year program eliminating on-premises hardware across nine global industries — EC2, ECS, VPC, S3, RDS, IAM at the centre of the architecture.</p>
+        <span class="badge">Multi-Industry · 5 yrs</span>
+      </article>
+
+      <article class="highlight reveal" data-num="03">
+        <h4>Agentic AI · RAG 2.0 Deployment</h4>
+        <p>AI Chat (RAG 2.0) for Factory operations replacing manual knowledge lookup; Python-based Call Sentiment Analysis AI agent for automated QA at scale.</p>
+        <span class="badge">OpenAI · Agentic</span>
+      </article>
+
+      <article class="highlight reveal" data-num="04">
+        <h4>500-FTE Transition NA → India</h4>
+        <p>End-to-end service transition delivering 40–50% cost reduction with maintained 99.5% uptime SLA compliance and zero major outages during cutover.</p>
+        <span class="badge">Global Delivery</span>
+      </article>
+
+      <article class="highlight reveal" data-num="05">
+        <h4>100+ RFP Contributions</h4>
+        <p>Contributed to over a hundred RFPs across global infrastructure transformation programs spanning Banking, Insurance, Airlines, Oil & Gas, and Pharma sectors.</p>
+        <span class="badge">Pre-Sales · Strategy</span>
+      </article>
+
+      <article class="highlight reveal" data-num="06">
+        <h4>Education for 5,000+ Children</h4>
+        <p>Spearheaded Mobile Computer-Aided Learning Centres at Azim Premji Foundation, deploying open-source platforms across government schools and reducing CAPEX by 50%.</p>
+        <span class="badge">Social Impact</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="frame" id="education">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">05 — CREDENTIALS</div>
+      <h2 class="section-title">Formal <em>training & recognition</em>.</h2>
+    </div>
+
+    <div class="two-col">
+      <div class="reveal">
+        <h3 class="col-title">Education</h3>
+        <ul class="item-list">
+          <li>
+            <div class="title-text">M.Sc. Information Technology<span class="org">Sikkim Manipal University</span></div>
+            <span class="year">Jul 2014</span>
+          </li>
+          <li>
+            <div class="title-text">Bachelor of Commerce<span class="org">Bangalore University</span></div>
+            <span class="year">Apr 1999</span>
+          </li>
+          <li>
+            <div class="title-text">M.A. Journalism & Media<span class="org">IGNOU</span></div>
+            <span class="year pursuing">Pursuing</span>
+          </li>
+          <li>
+            <div class="title-text">AI Product Leadership Program<span class="org">IIT Kanpur · EICTA Consortium</span></div>
+            <span class="year pursuing">Pursuing</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h3 class="col-title">Certifications & Awards</h3>
+        <ul class="item-list">
+          <li>
+            <div class="title-text">Azure Architect<span class="org">Microsoft · AZ-303</span></div>
+            <span class="year">Certified</span>
+          </li>
+          <li>
+            <div class="title-text">Azure Fundamentals<span class="org">Microsoft · AZ-900</span></div>
+            <span class="year">Certified</span>
+          </li>
+          <li>
+            <div class="title-text">CIS — STRIVE Leadership Programme<span class="org">Effilor</span></div>
+            <span class="year pursuing">Pursuing</span>
+          </li>
+          <li>
+            <div class="title-text">Accenture ACE Award<span class="org">Excellence in Delivery</span></div>
+            <span class="year">2019</span>
+          </li>
+          <li>
+            <div class="title-text">Corona Warrior<span class="org">Pandemic Service Accreditation</span></div>
+            <span class="year">Awarded</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTPRINT -->
+<section class="footprint-section frame">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">06 — REACH</div>
+      <h2 class="section-title">Programmes delivered across <em>ten geographies</em>, six industries.</h2>
+    </div>
+
+    <div class="reveal">
+      <h3 class="col-title" style="margin-bottom: 8px;">Global Footprint</h3>
+      <p style="color: var(--ink-mute); margin-bottom: 8px;">Countries where engagements have been led or delivered on the ground.</p>
+
+      <div class="countries-grid">
+        <div class="country"><div class="flag-mono">IN</div><div class="name">India</div></div>
+        <div class="country"><div class="flag-mono">US</div><div class="name">United States</div></div>
+        <div class="country"><div class="flag-mono">CA</div><div class="name">Canada</div></div>
+        <div class="country"><div class="flag-mono">UK</div><div class="name">United Kingdom</div></div>
+        <div class="country"><div class="flag-mono">FR</div><div class="name">France</div></div>
+        <div class="country"><div class="flag-mono">ES</div><div class="name">Spain</div></div>
+        <div class="country"><div class="flag-mono">NL</div><div class="name">Netherlands</div></div>
+        <div class="country"><div class="flag-mono">AT</div><div class="name">Austria</div></div>
+        <div class="country"><div class="flag-mono">AE</div><div class="name">Dubai · UAE</div></div>
+        <div class="country"><div class="flag-mono">SA</div><div class="name">Saudi Arabia</div></div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 60px;">
+      <h3 class="col-title" style="margin-bottom: 8px;">Industry Verticals</h3>
+      <p style="color: var(--ink-mute); margin-bottom: 8px;">Domain experience accumulated across regulated and operationally complex sectors.</p>
+
+      <div class="industries-wrap">
+        <span class="industry-pill">Banking</span>
+        <span class="industry-pill">Insurance</span>
+        <span class="industry-pill">Airlines</span>
+        <span class="industry-pill">Logistics</span>
+        <span class="industry-pill">Oil & Gas</span>
+        <span class="industry-pill">Pharmaceuticals</span>
+        <span class="industry-pill">Health</span>
+        <span class="industry-pill">Construction</span>
+        <span class="industry-pill">Automobile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-name">Raghu <span>Bannur</span></div>
+        <p class="footer-tag">Bridging infrastructure foundations with AI-native operating models. Open to senior leadership engagements in cloud transformation, AI strategy, and global programme governance.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:raghuvbannur@gmail.com">raghuvbannur@gmail.com</a>
+        <a href="tel:+919591810294">+91 95918 10294</a>
+        <span>Bangalore, India</span>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="#summary">01 Profile</a>
+        <a href="#skills">02 Competencies</a>
+        <a href="#experience">03 Trajectory</a>
+        <a href="#highlights">04 Signature Work</a>
+        <a href="#education">05 Credentials</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Raghu Bannur — Curriculum Vitae, Edition III</span>
+      <span>Crafted with intent · Bangalore</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const counters = document.querySelectorAll('.num');
+  const animateCounter = (el) => {
+    const target = parseFloat(el.dataset.target);
+    const counter = el.querySelector('.counter');
+    const isFloat = target % 1 !== 0;
+    const duration = 1800;
+    const start = performance.now();
+
+    const formatNum = (n) => {
+      if (isFloat) return n.toFixed(1);
+      if (n >= 1000) return Math.floor(n).toLocaleString();
+      return Math.floor(n);
+    };
+
+    const tick = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = formatNum(target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+      else counter.textContent = formatNum(target);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        const numEl = entry.target.querySelector('.num');
+        if (numEl && !numEl.dataset.animated) {
+          numEl.dataset.animated = 'true';
+          animateCounter(numEl);
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+  document.querySelectorAll('.skills-grid .reveal, .highlights-grid .reveal, .stats-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+
+  // Mouse-tracked glow on skill cards
+  document.querySelectorAll('.skill-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
+
+</body>
+</html>
